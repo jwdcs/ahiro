@@ -1,0 +1,30 @@
+Ahiro Software License
+
+Copyright (c) 2024 James de Chutkowski
+All rights reserved.
+
+1. **Ownership and Copyright**
+   The "ahiro" software, including all associated code, documentation, and assets, is the sole property of James de Chutkowski. By downloading or using this software, you acknowledge that all intellectual property rights in the software remain with the owner.
+
+2. **Permitted Use**
+   This software is provided for personal, non-commercial use only. Users are permitted to:
+   - Install and run the software on their personal devices for personal use.
+   
+3. **Prohibited Uses**
+   Users are prohibited from:
+   - Using the software for commercial purposes without prior written consent from the owner.
+   - Modifying, distributing, sublicensing, or selling copies of the software.
+   - Decompiling, reverse-engineering, or attempting to extract the source code or underlying structure of the software.
+
+4. **Warranty Disclaimer**
+   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NONINFRINGEMENT. IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+5. **Termination of Use**
+   The owner reserves the right to terminate the user’s access to the software at any time if the user violates any terms outlined in this license.
+
+6. **Governing Law**
+   This license and any disputes related to the use of this software will be governed by and construed in accordance with the laws of the United States.
+
+7. **Future Commercial Use**
+   In the event that the "ahiro" software transitions into a commercially available product, the terms of this license may change. Users will be required to comply with the updated terms.
+
