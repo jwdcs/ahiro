@@ -1,13 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
-import TextWithHoverEffect from './components/TextWithHoverEffect';
+import HomePage from './components/HomePage';
 
 
 function App() {
   return (
-    // <Header></Header>
-    <TextWithHoverEffect></TextWithHoverEffect>
+    <>
+      <Header></Header>
+      <HomePage></HomePage>
+    </>
   );
 }
 

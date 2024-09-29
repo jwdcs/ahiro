@@ -1,83 +1,26 @@
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { styled, keyframes } from '@mui/material/styles';
-
-const typing = keyframes`
-  from { width: 0; }
-  to { width: 100%; }
-`;
-
-const blinkCaret = keyframes`
-  from, to { border-color: transparent; }
-  50% { border-color: black; }
-`;
-
-const TypingEffect = styled('span')(({ theme }) => ({
-    fontSize: '16px',
-    color: '#FFFFFF',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    borderRight: '3px solid',
-    width: '0',
-    display: 'inline-block',
-    animation: `${typing} 2s steps(20, end) forwards, ${blinkCaret} 0.75s step-end infinite`,
-}));
+import { AppBar, Box, Toolbar, Button, IconButton, Avatar, Menu, MenuItem } from '@mui/material/'
+import { styled } from '@mui/material/styles';
 
 const StyledLogoText = styled('span')(() => ({
-    fontSize: '24px',
+    fontSize: '36px',
     fontWeight: 'bold',
     display: 'inline-block',
     verticalAlign: 'middle',
 }));
 
 const AhText = styled('span')(() => ({
-    color: '#60B1F3', // blue
+    color: '#60B1F3',
 }));
 
 const IText = styled('span')(() => ({
-    color: '#FFFFFF', // white
+    color: '#FFFFFF',
 }));
 
 const RoText = styled('span')(() => ({
-    color: '#FFF594', // yellowish color
+    color: '#FFF594',
 }));
 
-const ClickableBox = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    textTransform: 'none',
-    padding: 0,
-    color: 'inherit',
-    textDecoration: 'none',
-    cursor: 'pointer',
-    position: 'relative',
-    '&:hover': {
-        textDecoration: 'underline',
-    },
-}));
-
-const HoverTextBox = styled(Box)(({ theme }) => ({
-    position: 'absolute',
-    top: '60px', // adjust this depending on your layout
-    left: '100%', // ensures it shows to the right of the ClickableBox
-    color: '#FFF',
-    backgroundColor: '#333',
-    padding: '5px 10px',
-    borderRadius: '4px',
-    opacity: 0, // Start as invisible
-    transition: 'opacity 0.3s ease-in-out', // Smooth transition for hover
-    whiteSpace: 'nowrap',
-    '&.visible': {
-        opacity: 1, // Become visible on hover
-    }
-}));
 
 const StyledButton = styled(Button)(({ theme }) => ({
     fontSize: '24px',
@@ -123,23 +66,17 @@ const Header = () => {
         <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
             <Toolbar>
                 <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                    <ClickableBox onClick={() => console.log("Logo or AHiro clicked!")}>
-                        <img
-                            src="AHIRO.png"
-                            alt="Logo"
-                            style={{ height: '50px', marginRight: '8px' }}
-                        />
-                        <StyledLogoText>
-                            <AhText>AH</AhText>
-                            <IText>I</IText>
-                            <RoText>RO</RoText>
-                        </StyledLogoText>
+                    <img
+                        src="AHIRO.png"
+                        alt="Logo"
+                        style={{ height: '50px', marginRight: '8px' }}
+                    />
+                    <StyledLogoText>
+                        <AhText>AH</AhText>
+                        <IText>I</IText>
+                        <RoText>RO</RoText>
+                    </StyledLogoText>
 
-                        {/* Hoverable typing text */}
-                        <HoverTextBox>
-                            <TypingEffect>— start a new session</TypingEffect>
-                        </HoverTextBox>
-                    </ClickableBox>
                 </Box>
 
                 <StyledButton>About</StyledButton>
