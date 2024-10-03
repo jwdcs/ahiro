@@ -1,9 +1,8 @@
 // App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import About from './components/About';
-import Header from './components/Header';
 import HomePage from './components/HomePage';
+import Header from './components/Header';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
 import NotFound from './components/NotFound';
@@ -15,7 +14,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
         <Route
           path="/profile"
           element={

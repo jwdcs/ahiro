@@ -77,12 +77,6 @@ const Header = () => {
             path: '/profile',
         },
         {
-            text: 'About',
-            icon: <InfoIcon fontSize="small" />,
-            onClick: () => handleNavigation('/about'),
-            path: '/about',
-        },
-        {
             text: 'Settings',
             icon: <SettingsIcon fontSize="small" />,
             onClick: () => handleNavigation('/settings'),
