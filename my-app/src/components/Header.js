@@ -1,4 +1,4 @@
-// Header.js
+// src/components/Header.js
 import React, { useState } from 'react';
 import {
     AppBar,
@@ -13,9 +13,10 @@ import {
     useTheme,
     ListItemIcon,
     Button,
+    Avatar,
+    Grid,
 } from '@mui/material/';
 import { styled } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -98,103 +99,100 @@ const Header = () => {
     return (
         <AppBar position="static" sx={{ background: 'transparent', boxShadow: 'none' }}>
             <Toolbar>
-                <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <Box
-                            sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-                            onClick={() => navigate('/')}
-                        >
-                            <img
-                                src="AHIRO.png"
-                                alt="Logo"
-                                style={{ height: '50px', marginRight: '8px' }}
-                            />
-                            <StyledLogoText>
-                                <AhText>AH</AhText>
-                                <IText>I</IText>
-                                <RoText>RO</RoText>
-                            </StyledLogoText>
-                        </Box>
-                    </motion.div>
-                </Box>
+                <Grid container alignItems="center">
+                    <Grid item xs={4} />
 
-                <Box>
-                    {isLoading ? (
-                        <Typography variant="body1" color="white">
-                            Loading...
-                        </Typography>
-                    ) : isAuthenticated ? (
-                        <>
-                            {isMobile ? (
-                                <>
-                                    <Tooltip title="Menu">
-                                        <IconButton
-                                            onClick={handleMenuClick}
-                                            sx={{ ml: 2 }}
-                                            aria-controls={Boolean(anchorEl) ? 'menu-appbar' : undefined}
-                                            aria-haspopup="true"
-                                            aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
-                                        >
-                                            <MenuIcon sx={{ color: '#FFFFFF' }} />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Menu
-                                        id="menu-appbar"
-                                        anchorEl={anchorEl}
-                                        open={Boolean(anchorEl)}
-                                        onClose={handleMenuClose}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        PaperProps={{
-                                            sx: {
-                                                backgroundColor: '#1e1e1e',
-                                                color: '#FFFFFF',
-                                                mt: 1.5,
-                                                minWidth: 180,
-                                            },
-                                        }}
+                    <Grid item xs={4} display="flex" justifyContent="center">
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <Box
+                                sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                                onClick={() => navigate('/')}
+                            >
+                                <img
+                                    src="/AHIRO.png"
+                                    alt="Logo"
+                                    style={{ height: '50px', marginRight: '8px' }}
+                                />
+                                <StyledLogoText>
+                                    <AhText>AH</AhText>
+                                    <IText>I</IText>
+                                    <RoText>RO</RoText>
+                                </StyledLogoText>
+                            </Box>
+                        </motion.div>
+                    </Grid>
+
+                    <Grid item xs={4} display="flex" justifyContent="flex-end">
+                        {isLoading ? (
+                            <Typography variant="body1" color="white">
+                                Loading...
+                            </Typography>
+                        ) : isAuthenticated ? (
+                            <>
+                                <Tooltip title="Menu">
+                                    <IconButton
+                                        onClick={handleMenuClick}
+                                        sx={{ ml: 2 }}
+                                        aria-controls={Boolean(anchorEl) ? 'menu-appbar' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
                                     >
-                                        {menuItems.map((item) => (
-                                            <MenuItem
-                                                key={item.text}
-                                                onClick={item.onClick}
-                                                selected={item.path && location.pathname === item.path}
-                                            >
-                                                <ListItemIcon sx={{ color: '#60B1F3', minWidth: '40px' }}>
-                                                    {item.icon}
-                                                </ListItemIcon>
-                                                <Typography variant="inherit">{item.text}</Typography>
-                                            </MenuItem>
-                                        ))}
-                                    </Menu>
-                                </>
-                            ) : (
-                                <>
-                                    <Typography variant="body1" color="white" sx={{ mr: 2 }}>
-                                        Hello, {user.name}
-                                    </Typography>
-                                    <Button variant="outlined" color="inherit" onClick={handleSignOut}>
-                                        Logout
-                                    </Button>
-                                </>
-                            )}
-                        </>
-                    ) : (
-                        <Button variant="contained" color="primary" onClick={() => loginWithRedirect()}>
-                            Login
-                        </Button>
-                    )}
-                </Box>
+                                        <Avatar alt={user.name} src={user.picture} />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleMenuClose}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    PaperProps={{
+                                        sx: {
+                                            backgroundColor: '#1e1e1e',
+                                            color: '#FFFFFF',
+                                            mt: 1.5,
+                                            minWidth: 180,
+                                            borderRadius: '8px',
+                                        },
+                                    }}
+                                >
+                                    <Box sx={{ padding: '12px 16px', display: 'flex', alignItems: 'center' }}>
+                                        <Avatar alt={user.name} src={user.picture} sx={{ mr: 2 }} />
+                                        <Typography variant="subtitle1">Hello, {user.name}</Typography>
+                                    </Box>
+                                    <Box sx={{ borderBottom: '1px solid #333', marginY: 1 }} />
+                                    {menuItems.map((item) => (
+                                        <MenuItem
+                                            key={item.text}
+                                            onClick={item.onClick}
+                                            selected={item.path && location.pathname === item.path}
+                                        >
+                                            <ListItemIcon sx={{ color: '#60B1F3', minWidth: '40px' }}>
+                                                {item.icon}
+                                            </ListItemIcon>
+                                            <Typography variant="inherit">{item.text}</Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </>
+                        ) : (
+                            <Button variant="contained" color="primary" onClick={() => loginWithRedirect()}>
+                                Login
+                            </Button>
+                        )}
+                    </Grid>
+                </Grid>
             </Toolbar>
         </AppBar>
     );
