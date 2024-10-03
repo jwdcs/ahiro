@@ -12,6 +12,7 @@ import {
     useMediaQuery,
     useTheme,
     ListItemIcon,
+    Button,
 } from '@mui/material/';
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const StyledLogoText = styled('span')(() => ({
     fontSize: '32px',
@@ -47,6 +49,7 @@ const Header = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const navigate = useNavigate();
     const location = useLocation();
+    const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0();
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -61,14 +64,8 @@ const Header = () => {
         handleMenuClose();
     };
 
-    const handleSignOut = async () => {
-        try {
-            // await logout();
-            // navigate('/login');
-        } catch (error) {
-            console.error('Sign-out failed:', error);
-        }
-        handleMenuClose();
+    const handleSignOut = () => {
+        logout({ returnTo: window.location.origin });
     };
 
     const menuItems = [
@@ -126,52 +123,77 @@ const Header = () => {
                 </Box>
 
                 <Box>
-                    <Tooltip title="Menu">
-                        <IconButton
-                            onClick={handleMenuClick}
-                            sx={{ ml: 2 }}
-                            aria-controls={Boolean(anchorEl) ? 'menu-appbar' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
-                        >
-                            <MenuIcon sx={{ color: '#FFFFFF' }} />
-                        </IconButton>
-                    </Tooltip>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        PaperProps={{
-                            sx: {
-                                backgroundColor: '#1e1e1e',
-                                color: '#FFFFFF',
-                                mt: 4.0,
-                                minWidth: 180,
-                            },
-                        }}
-                    >
-                        {menuItems.map((item) => (
-                            <MenuItem
-                                key={item.text}
-                                onClick={item.onClick}
-                                selected={item.path && location.pathname === item.path}
-                            >
-                                <ListItemIcon sx={{ color: '#60B1F3', minWidth: '40px' }}>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <Typography variant="inherit">{item.text}</Typography>
-                            </MenuItem>
-                        ))}
-                    </Menu>
+                    {isLoading ? (
+                        <Typography variant="body1" color="white">
+                            Loading...
+                        </Typography>
+                    ) : isAuthenticated ? (
+                        <>
+                            {isMobile ? (
+                                <>
+                                    <Tooltip title="Menu">
+                                        <IconButton
+                                            onClick={handleMenuClick}
+                                            sx={{ ml: 2 }}
+                                            aria-controls={Boolean(anchorEl) ? 'menu-appbar' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+                                        >
+                                            <MenuIcon sx={{ color: '#FFFFFF' }} />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleMenuClose}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        PaperProps={{
+                                            sx: {
+                                                backgroundColor: '#1e1e1e',
+                                                color: '#FFFFFF',
+                                                mt: 1.5,
+                                                minWidth: 180,
+                                            },
+                                        }}
+                                    >
+                                        {menuItems.map((item) => (
+                                            <MenuItem
+                                                key={item.text}
+                                                onClick={item.onClick}
+                                                selected={item.path && location.pathname === item.path}
+                                            >
+                                                <ListItemIcon sx={{ color: '#60B1F3', minWidth: '40px' }}>
+                                                    {item.icon}
+                                                </ListItemIcon>
+                                                <Typography variant="inherit">{item.text}</Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </>
+                            ) : (
+                                <>
+                                    <Typography variant="body1" color="white" sx={{ mr: 2 }}>
+                                        Hello, {user.name}
+                                    </Typography>
+                                    <Button variant="outlined" color="inherit" onClick={handleSignOut}>
+                                        Logout
+                                    </Button>
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <Button variant="contained" color="primary" onClick={() => loginWithRedirect()}>
+                            Login
+                        </Button>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>
