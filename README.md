@@ -1,1 +1,2 @@
 # ahiro
+Ahiro is a personal project aimed at providing job seekers with AI-powered resume review and feedback to help optimize their resumes and prepare for technical interviews. The app uses interactive steps to upload resumes, engage with AI, and receive feedback tailored to career goals.
