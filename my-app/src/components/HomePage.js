@@ -14,6 +14,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { motion } from 'framer-motion';
 import Fade from '@mui/material/Fade';
+import { Link as RouterLink } from 'react-router-dom';
+
 
 const HomePageContainer = styled(Box)(({ theme }) => ({
     maxHeight: '90vh',
@@ -125,12 +127,14 @@ const HomePage = () => {
                                         },
                                     }}
                                 >
+                                    <Link component={RouterLink} to="/resume" underline="none">
                                     <Typography variant="h5" gutterBottom sx={{ fontWeight: 700, color: '#60B1F3' }}>
                                         Resume Polishing
                                     </Typography>
                                     <Typography variant="body1" sx={{ color: '#cccccc' }}>
                                         Enhance your resume with expert feedback, formatting tools, and keyword optimization to stand out to recruiters.
                                     </Typography>
+                                    </Link>
                                 </Paper>
                             </motion.div>
                         </Grid>
