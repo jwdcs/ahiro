@@ -1,35 +1,70 @@
-import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Button, Typography } from '@mui/material';
+import React, { useState, useRef } from 'react';
+
 
 const ResumeUpload = ({ onUpload }) => {
   const [error, setError] = useState(null);
-  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
+  const fileInputRef = useRef();
 
-  const onDrop = (acceptedFiles) => {
-    const resumeFile = acceptedFiles[0];
+  const handleFileChange = (event) => {
+    const resumeFile = event.target.files[0];
 
-    if (resumeFile.size > 5 * 1024 * 1024) { // 5MB size limit
+    if (!resumeFile) {
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (resumeFile.size > 5 * 1024 * 1024) {
       setError('File size exceeds 5MB limit.');
+      setFileName(null);
       return;
     }
 
-    if (!['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'].includes(resumeFile.type)) {
+    // Validate file type
+    const allowedTypes = [
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'text/plain',
+    ];
+
+    if (!allowedTypes.includes(resumeFile.type)) {
       setError('Unsupported file type.');
+      setFileName(null);
       return;
     }
 
-    setFile(resumeFile);
+    setError(null);
+    setFileName(resumeFile.name);
     onUpload(resumeFile);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
   return (
-    <div {...getRootProps({ className: 'dropzone' })}>
-      <input {...getInputProps()} />
-      <p>Drag 'n' drop your resume here, or click to select one (PDF, DOCX, TXT)</p>
-      {error && <p className="error">{error}</p>}
-      {file && <p>File selected: {file.name}</p>}
+    <div>
+      <input
+        type="file"
+        accept=".pdf,.docx,.txt"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleFileChange}
+      />
+      <Button variant="contained" onClick={handleButtonClick}>
+        Select Resume File
+      </Button>
+      {fileName && (
+        <Typography variant="body1" sx={{ mt: 2 }}>
+          File selected: {fileName}
+        </Typography>
+      )}
+      {error && (
+        <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+          {error}
+        </Typography>
+      )}
     </div>
   );
 };

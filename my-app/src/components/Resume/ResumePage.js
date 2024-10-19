@@ -13,8 +13,31 @@ const ResumePage = () => {
 
   const handleResumeUpload = (file) => {
     setResumeFile(file);
-    setActiveStep(1); // Move to AI Interaction after upload
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('resume', file);
+  
+    // Send file to backend
+    fetch('http://127.0.0.1:5000/api/upload', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to upload resume.');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setFeedback(data.suggestions);
+        setActiveStep(2); // Move to feedback step
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle error (e.g., display message to the user)
+      });
   };
+  
 
   const handleFeedbackSubmit = (response) => {
     // Simulate AI feedback interaction

@@ -1,14 +1,19 @@
 import React from 'react';
+import { Typography, List, ListItem, ListItemText } from '@mui/material';
 
 const Feedback = ({ feedback }) => {
   return (
     <div>
-      <h2>AI Feedback</h2>
-      <ul>
+      <Typography variant="h6" gutterBottom>
+        AI Feedback
+      </Typography>
+      <List>
         {feedback.map((tip, idx) => (
-          <li key={idx}>{tip}</li>
+          <ListItem key={idx} alignItems="flex-start">
+            <ListItemText primary={tip} />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
